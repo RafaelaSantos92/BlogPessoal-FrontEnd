@@ -24,18 +24,24 @@ export class EntrarComponent implements OnInit {
   }
 
   entrar(){
-    this.auth.entrar(this.userLogin).subscribe((resp: userLogin) =>{this.userLogin = resp
-
-      environment.token = this.userLogin.token
-      environment.nome = this.userLogin.nome
-      environment.id = this.userLogin.id
-      environment.foto = this.userLogin.foto
-      this.router.navigate(['/inicio'])
-    }, erro=>{
-      if(erro.status == 401){
-        alert('Usuário ou senhas estão incorretos.')
+    this.auth.entrar(this.userLogin).subscribe({
+      next: (resp: userLogin) => {
+        this.userLogin = resp
+        environment.nome = this.userLogin.nome;
+        environment.id = this.userLogin.id;
+        environment.foto = this.userLogin.foto;
+        environment.token = this.userLogin.token;
+        
+        this.router.navigate(['/inicio'])
+      },
+      error: erro=> {
+        if(erro.status == 401) {
+          alert('Usuário ou senha inválidos')
+        }
       }
     })
-
   }
+
+
+
 }
