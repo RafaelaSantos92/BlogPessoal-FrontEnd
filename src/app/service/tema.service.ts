@@ -19,8 +19,20 @@ export class temaService {
     return this.http.get<tema[]>('https://bpdarafa.herokuapp.com/tema', this.token)
   }
 
+  getByIdTema(id: number): Observable<tema>{
+    return this.http.get<tema>(`https://bpdarafa.herokuapp.com/tema/${id}`, this.token)
+  }
+
   postTema(tema: tema): Observable<tema>{
     return this.http.post<tema>('https://bpdarafa.herokuapp.com/tema',tema, this.token)
+  }
+
+  putTema(tema: tema): Observable<tema>{
+    return this.http.put<tema>('https://bpdarafa.herokuapp.com/tema', tema, this.token)
+  }
+
+  deleteTema(id: number){
+    return this.http.delete(`https://bpdarafa.herokuapp.com/tema/${id}`, this.token)
   }
 
 }
